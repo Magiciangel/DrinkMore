@@ -1,6 +1,5 @@
 # DrinkMore
 
-[中文说明](README.zh-CN.md)
 
 ![DrinkMore logo](Assets/DrinkMoreLogo.png)
 
@@ -45,3 +44,5 @@ The logo was generated with Codex built-in imagegen. The source image is `Assets
 ## macOS Notification Behavior
 
 macOS does not give ordinary apps a reliable way to know whether a notification was dismissed. DrinkMore uses a clearer interaction model: after the notification is delivered, the app waits for you to click Done, Snooze, log a drink, or handle the full-screen reminder. If no action happens within the grace period, the full-screen reminder appears.
+
+For Chinese users, visit [中文说明](README.zh-CN.md) 
