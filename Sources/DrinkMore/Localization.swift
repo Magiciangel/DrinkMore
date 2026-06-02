@@ -135,6 +135,9 @@ enum L10n {
         case cupName
         case type
         case goal
+        case addAchievement
+        case editAchievement
+        case deleteAchievement
         case goalName
         case capacity
         case target
@@ -154,7 +157,7 @@ enum L10n {
     private static let english: [Key: String] = [
         .today: "Today",
         .cups: "Cups",
-        .achievements: "Achievements",
+        .achievements: "Personal Achievements",
         .reminders: "Reminders",
         .todayTotalIntake: "Total intake today",
         .todayLog: "Today's log",
@@ -168,6 +171,9 @@ enum L10n {
         .cupName: "Name",
         .type: "Type",
         .goal: "Goal",
+        .addAchievement: "Add achievement",
+        .editAchievement: "Edit achievement",
+        .deleteAchievement: "Delete achievement",
         .goalName: "Name",
         .capacity: "Capacity",
         .target: "Target",
@@ -187,7 +193,7 @@ enum L10n {
     private static let chinese: [Key: String] = [
         .today: "今天",
         .cups: "杯子",
-        .achievements: "成就",
+        .achievements: "个人成就",
         .reminders: "提醒",
         .todayTotalIntake: "今天总摄入",
         .todayLog: "今日记录",
@@ -201,6 +207,9 @@ enum L10n {
         .cupName: "名称",
         .type: "类型",
         .goal: "目标",
+        .addAchievement: "新增成就",
+        .editAchievement: "编辑成就",
+        .deleteAchievement: "删除成就",
         .goalName: "名称",
         .capacity: "容量",
         .target: "目标",
