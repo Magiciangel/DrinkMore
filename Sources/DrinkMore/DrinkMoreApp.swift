@@ -10,7 +10,7 @@ struct DrinkMoreApp: App {
     @StateObject private var language = LanguageSettings()
 
     var body: some Scene {
-        WindowGroup("DrinkMore") {
+        WindowGroup("DrinkMore", id: AppWindow.main) {
             ContentView()
                 .environmentObject(store)
                 .environmentObject(reminder)
@@ -91,6 +91,10 @@ enum NotificationAction {
     static let category = "DRINK_REMINDER"
     static let acknowledge = "DRINK_REMINDER_ACKNOWLEDGE"
     static let snooze = "DRINK_REMINDER_SNOOZE"
+}
+
+enum AppWindow {
+    static let main = "main"
 }
 
 extension Notification.Name {

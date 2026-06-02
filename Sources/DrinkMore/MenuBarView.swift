@@ -4,6 +4,7 @@ struct MenuBarView: View {
     @EnvironmentObject private var store: AppStore
     @EnvironmentObject private var reminder: ReminderEngine
     @EnvironmentObject private var language: LanguageSettings
+    @Environment(\.openWindow) private var openWindow
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -12,8 +13,8 @@ struct MenuBarView: View {
                     .font(.headline)
                 Spacer()
                 Button {
+                    openWindow(id: AppWindow.main)
                     NSApp.activate(ignoringOtherApps: true)
-                    NSApp.windows.first?.makeKeyAndOrderFront(nil)
                 } label: {
                     Image(systemName: "arrow.up.forward.app")
                 }
