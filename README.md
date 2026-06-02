@@ -2,43 +2,71 @@
 
 ![DrinkMore logo](Assets/DrinkMoreLogo.png)
 
-DrinkMore 是一个开源 macOS 喝水提醒小工具，目标是轻量、常驻菜单栏、记录真实杯子容量，并且能在通知没被处理时弹出强提醒。
+DrinkMore is an open-source macOS hydration reminder app. It stays lightweight, lives in the menu bar, tracks the cups you actually use, and escalates from a notification to a full-screen reminder when a reminder goes unanswered.
 
-## 当前功能
+## Features
 
-- 记录多个杯子：水杯、咖啡杯、马克杯、随行杯，也可以自己新增和修改容量
-- 按杯子快速记录：每天每个杯子喝了几杯、总共喝了多少 ml
-- 区分类型：水、咖啡、茶、其他
-- 自定义倒计时提醒
-- 先发系统通知，超过宽限时间后弹出全屏提醒
-- 成就系统：可以自定义每天喝水目标、咖啡目标或其他饮品目标
-- 菜单栏快速记录和稍后提醒
+- Add and edit real cups, including name, drink type, and capacity.
+- Quickly log water, coffee, tea, or other drinks from the main window or menu bar.
+- Track how many cups you drank today and the total liquid intake in ml.
+- Customize countdown-based reminders.
+- Send a system notification first, then show a full-screen reminder after a configurable grace period.
+- Customize achievement goals for water, coffee, tea, or other drinks.
+- Switch the app interface between English and Chinese.
+- Smooth animated transitions between app pages.
 
-## 本地运行
+## Run Locally
 
 ```bash
 swift run DrinkMore
 ```
 
-第一次运行时，系统会请求通知权限。
+The app asks for notification permission on first launch.
 
-## 打包 Release
+## Package a Release
 
 ```bash
 ./Scripts/package-release.sh
 ```
 
-脚本会生成：
+The script creates:
 
 - `dist/DrinkMore.app`
 - `dist/DrinkMore-macOS.zip`
 
-把 zip 上传到 GitHub Release，用户下载后解压并拖进 Applications 即可。
+Upload the zip file to a GitHub Release. Users can download it, unzip it, and open `DrinkMore.app`.
 
 ## Logo
 
-Logo 使用 Codex 内置 imagegen 生成，源图在 `Assets/DrinkMoreLogo.png`，macOS 图标在 `Assets/DrinkMore.icns`。
+The logo was generated with Codex built-in imagegen. The source image is `Assets/DrinkMoreLogo.png`, and the macOS icon is `Assets/DrinkMore.icns`.
 
-## 说明
+## macOS Notification Behavior
 
-macOS 没有给普通 App 一个稳定接口来判断用户是否“消掉”了通知。DrinkMore 采用更可靠的交互判断：通知发出后，如果你没有在 App、菜单栏或全屏页点击“我喝了”或“稍后”，到达宽限时间就会弹全屏提醒。
+macOS does not give ordinary apps a reliable way to know whether a notification was dismissed. DrinkMore uses a clearer interaction model: after the notification is delivered, the app waits for you to click Done, Snooze, log a drink, or handle the full-screen reminder. If no action happens within the grace period, the full-screen reminder appears.
+
+## 中文说明
+
+DrinkMore 是一个开源 macOS 喝水提醒工具。它常驻菜单栏，可以记录真实杯子的容量，统计每天喝了多少水、咖啡、茶或其他饮品，并支持通知提醒和全屏强提醒。
+
+当前功能：
+
+- 新增和编辑杯子，包括名称、类型、容量。
+- 从主窗口或菜单栏快速记录饮品。
+- 统计今天喝了多少杯、总共摄入多少 ml。
+- 自定义倒计时提醒。
+- 先发系统通知，超过宽限时间后弹出全屏提醒。
+- 自定义水、咖啡、茶或其他饮品的成就目标。
+- App 界面支持英文和中文切换。
+- 页面切换带动画。
+
+本地运行：
+
+```bash
+swift run DrinkMore
+```
+
+打包 Release：
+
+```bash
+./Scripts/package-release.sh
+```

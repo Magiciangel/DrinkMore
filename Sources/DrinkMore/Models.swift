@@ -9,12 +9,7 @@ enum DrinkKind: String, Codable, CaseIterable, Identifiable {
     var id: String { rawValue }
 
     var title: String {
-        switch self {
-        case .water: "水"
-        case .coffee: "咖啡"
-        case .tea: "茶"
-        case .other: "其他"
-        }
+        L10n.drinkKind(self)
     }
 }
 
@@ -55,16 +50,16 @@ struct DrinkMoreData: Codable, Equatable {
 
     static let fresh = DrinkMoreData(
         cups: [
-            Cup(name: "水杯", volumeML: 350, kind: .water),
-            Cup(name: "咖啡杯", volumeML: 240, kind: .coffee),
-            Cup(name: "马克杯", volumeML: 300, kind: .water),
-            Cup(name: "随行杯", volumeML: 500, kind: .water)
+            Cup(name: "Water glass", volumeML: 350, kind: .water),
+            Cup(name: "Coffee cup", volumeML: 240, kind: .coffee),
+            Cup(name: "Mug", volumeML: 300, kind: .water),
+            Cup(name: "Travel bottle", volumeML: 500, kind: .water)
         ],
         entries: [],
         reminder: ReminderSettings(),
         goals: [
-            AchievementGoal(kind: .water, title: "今日饮水", targetML: 1800),
-            AchievementGoal(kind: .coffee, title: "咖啡上限", targetML: 480)
+            AchievementGoal(kind: .water, title: "Daily water", targetML: 1800),
+            AchievementGoal(kind: .coffee, title: "Coffee limit", targetML: 480)
         ]
     )
 }

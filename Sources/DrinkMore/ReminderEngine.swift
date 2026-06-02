@@ -68,8 +68,8 @@ final class ReminderEngine: ObservableObject {
 
     private func sendNotification() async {
         let content = UNMutableNotificationContent()
-        content.title = "该喝水了"
-        content.body = "起来喝一杯，顺手记录一下。"
+        content.title = L10n.text(.timeToDrink)
+        content.body = L10n.text(.reminderBody)
         content.sound = .default
         content.categoryIdentifier = NotificationAction.category
 

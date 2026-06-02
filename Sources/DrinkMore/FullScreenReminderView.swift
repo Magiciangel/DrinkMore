@@ -3,6 +3,7 @@ import SwiftUI
 struct FullScreenReminderView: View {
     var onDrink: () -> Void
     var onSnooze: () -> Void
+    private let language = LanguageSettings.current
 
     var body: some View {
         ZStack {
@@ -17,19 +18,19 @@ struct FullScreenReminderView: View {
                 Image(systemName: "drop.fill")
                     .font(.system(size: 86))
                     .foregroundStyle(.white)
-                Text("该喝水了")
+                Text(L10n.text(.timeToDrink, language))
                     .font(.system(size: 64, weight: .bold, design: .rounded))
                     .foregroundStyle(.white)
-                Text("喝完点一下，今天的记录会更完整。")
+                Text(L10n.text(.fullScreenBody, language))
                     .font(.title2)
                     .foregroundStyle(.white.opacity(0.82))
 
                 HStack(spacing: 16) {
-                    Button("我喝了") { onDrink() }
+                    Button(L10n.text(.iDrank, language)) { onDrink() }
                         .font(.title3.bold())
                         .buttonStyle(.borderedProminent)
                         .controlSize(.large)
-                    Button("稍后 10 分钟") { onSnooze() }
+                    Button(L10n.text(.snooze10, language)) { onSnooze() }
                         .font(.title3)
                         .buttonStyle(.bordered)
                         .controlSize(.large)

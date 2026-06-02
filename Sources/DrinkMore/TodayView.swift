@@ -3,18 +3,19 @@ import SwiftUI
 struct TodayView: View {
     @EnvironmentObject private var store: AppStore
     @EnvironmentObject private var reminder: ReminderEngine
+    @EnvironmentObject private var language: LanguageSettings
 
     var body: some View {
         VStack(alignment: .leading, spacing: 18) {
             HStack(alignment: .firstTextBaseline) {
                 Text("\(store.todayTotalML) ml")
                     .font(.system(size: 44, weight: .bold, design: .rounded))
-                Text("今天总摄入")
+                Text(L10n.text(.todayTotalIntake, language.language))
                     .font(.title3)
                     .foregroundStyle(.secondary)
                 Spacer()
                 if let next = reminder.nextReminderAt {
-                    Text("下次提醒 \(next.formatted(date: .omitted, time: .shortened))")
+                    Text(L10n.nextReminder(next, language.language))
                         .foregroundStyle(.secondary)
                 }
             }
@@ -28,7 +29,7 @@ struct TodayView: View {
                         VStack(alignment: .leading, spacing: 8) {
                             Label(cup.name, systemImage: icon(for: cup.kind))
                                 .font(.headline)
-                            Text("\(cup.volumeML) ml · 今天 \(store.todayCupCount(for: cup)) 杯")
+                            Text(L10n.cupSummary(volumeML: cup.volumeML, count: store.todayCupCount(for: cup), language.language))
                                 .font(.subheadline)
                                 .foregroundStyle(.secondary)
                         }
@@ -40,7 +41,7 @@ struct TodayView: View {
                 }
             }
 
-            Text("今日记录")
+            Text(L10n.text(.todayLog, language.language))
                 .font(.headline)
 
             List {
@@ -53,7 +54,7 @@ struct TodayView: View {
                             .foregroundStyle(.secondary)
                     }
                     .contextMenu {
-                        Button("删除") {
+                        Button(L10n.text(.delete, language.language)) {
                             store.removeEntry(entry)
                         }
                     }

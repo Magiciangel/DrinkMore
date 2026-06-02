@@ -2,6 +2,7 @@ import SwiftUI
 
 struct CupsView: View {
     @EnvironmentObject private var store: AppStore
+    @EnvironmentObject private var language: LanguageSettings
     @State private var draft = Cup(name: "", volumeML: 300, kind: .water)
     @State private var editingCupID: UUID?
 
@@ -24,11 +25,11 @@ struct CupsView: View {
                     }
                     .buttonStyle(.plain)
                     .contextMenu {
-                        Button("编辑") {
+                        Button(L10n.text(.edit, language.language)) {
                             draft = cup
                             editingCupID = cup.id
                         }
-                        Button("删除", role: .destructive) {
+                        Button(L10n.text(.delete, language.language), role: .destructive) {
                             store.deleteCup(cup)
                             if editingCupID == cup.id {
                                 resetDraft()
@@ -39,17 +40,17 @@ struct CupsView: View {
             }
 
             Form {
-                Text(editingCupID == nil ? "新增杯子" : "编辑杯子")
+                Text(editingCupID == nil ? L10n.text(.addCup, language.language) : L10n.text(.editCup, language.language))
                     .font(.headline)
-                TextField("名称", text: $draft.name)
-                Stepper("容量 \(draft.volumeML) ml", value: $draft.volumeML, in: 50...2000, step: 10)
-                Picker("类型", selection: $draft.kind) {
+                TextField(L10n.text(.cupName, language.language), text: $draft.name)
+                Stepper(L10n.capacity(draft.volumeML, language.language), value: $draft.volumeML, in: 50...2000, step: 10)
+                Picker(L10n.text(.type, language.language), selection: $draft.kind) {
                     ForEach(DrinkKind.allCases) { kind in
-                        Text(kind.title).tag(kind)
+                        Text(L10n.drinkKind(kind, language.language)).tag(kind)
                     }
                 }
                 HStack {
-                    Button("保存") {
+                    Button(L10n.text(.save, language.language)) {
                         let name = draft.name.trimmingCharacters(in: .whitespacesAndNewlines)
                         guard !name.isEmpty else { return }
                         draft.name = name
@@ -57,11 +58,11 @@ struct CupsView: View {
                         resetDraft()
                     }
                     .keyboardShortcut(.defaultAction)
-                    Button("新增杯子") {
+                    Button(L10n.text(.addCup, language.language)) {
                         resetDraft()
                     }
                     if let editingCupID, let cup = store.data.cups.first(where: { $0.id == editingCupID }) {
-                        Button("删除杯子", role: .destructive) {
+                        Button(L10n.text(.deleteCup, language.language), role: .destructive) {
                             store.deleteCup(cup)
                             resetDraft()
                         }

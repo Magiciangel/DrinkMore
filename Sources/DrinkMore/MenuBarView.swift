@@ -3,11 +3,12 @@ import SwiftUI
 struct MenuBarView: View {
     @EnvironmentObject private var store: AppStore
     @EnvironmentObject private var reminder: ReminderEngine
+    @EnvironmentObject private var language: LanguageSettings
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack {
-                Text("今天 \(store.todayTotalML) ml")
+                Text(L10n.todayTotal(store.todayTotalML, language.language))
                     .font(.headline)
                 Spacer()
                 Button {
@@ -32,14 +33,14 @@ struct MenuBarView: View {
             Divider()
 
             if let next = reminder.nextReminderAt {
-                Text("下次提醒 \(next.formatted(date: .omitted, time: .shortened))")
+                Text(L10n.nextReminder(next, language.language))
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
 
             HStack {
-                Button("稍后 10 分钟") { reminder.snooze() }
-                Button("退出") { NSApp.terminate(nil) }
+                Button(L10n.text(.snooze10, language.language)) { reminder.snooze() }
+                Button(L10n.text(.quit, language.language)) { NSApp.terminate(nil) }
             }
         }
         .padding(14)

@@ -7,12 +7,14 @@ struct DrinkMoreApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
     @StateObject private var store = AppStore()
     @StateObject private var reminder = ReminderEngine()
+    @StateObject private var language = LanguageSettings()
 
     var body: some Scene {
         WindowGroup("DrinkMore") {
             ContentView()
                 .environmentObject(store)
                 .environmentObject(reminder)
+                .environmentObject(language)
                 .task {
                     reminder.configure(store: store)
                     await reminder.requestNotificationAccess()
@@ -26,6 +28,7 @@ struct DrinkMoreApp: App {
             MenuBarView()
                 .environmentObject(store)
                 .environmentObject(reminder)
+                .environmentObject(language)
         }
         .menuBarExtraStyle(.window)
     }
@@ -66,12 +69,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCent
     private func configureNotificationActions() {
         let acknowledge = UNNotificationAction(
             identifier: NotificationAction.acknowledge,
-            title: "已处理",
+            title: L10n.text(.acknowledged),
             options: []
         )
         let snooze = UNNotificationAction(
             identifier: NotificationAction.snooze,
-            title: "稍后 10 分钟",
+            title: L10n.text(.snooze10),
             options: []
         )
         let category = UNNotificationCategory(

@@ -2,6 +2,7 @@ import SwiftUI
 
 struct AchievementsView: View {
     @EnvironmentObject private var store: AppStore
+    @EnvironmentObject private var language: LanguageSettings
     @State private var draft = AchievementGoal(kind: .water, title: "", targetML: 1800)
 
     var body: some View {
@@ -22,25 +23,25 @@ struct AchievementsView: View {
                     .padding(12)
                     .background(.quaternary, in: RoundedRectangle(cornerRadius: 8))
                     .contextMenu {
-                        Button("编辑") { draft = goal }
-                        Button("删除", role: .destructive) { store.deleteGoal(goal) }
+                        Button(L10n.text(.edit, language.language)) { draft = goal }
+                        Button(L10n.text(.delete, language.language), role: .destructive) { store.deleteGoal(goal) }
                     }
                 }
                 Spacer()
             }
 
             Form {
-                Text("目标")
+                Text(L10n.text(.goal, language.language))
                     .font(.headline)
-                TextField("名称", text: $draft.title)
-                Picker("类型", selection: $draft.kind) {
+                TextField(L10n.text(.goalName, language.language), text: $draft.title)
+                Picker(L10n.text(.type, language.language), selection: $draft.kind) {
                     ForEach(DrinkKind.allCases) { kind in
-                        Text(kind.title).tag(kind)
+                        Text(L10n.drinkKind(kind, language.language)).tag(kind)
                     }
                 }
-                Stepper("目标 \(draft.targetML) ml", value: $draft.targetML, in: 50...5000, step: 50)
+                Stepper(L10n.target(draft.targetML, language.language), value: $draft.targetML, in: 50...5000, step: 50)
                 HStack {
-                    Button("保存") {
+                    Button(L10n.text(.save, language.language)) {
                         let title = draft.title.trimmingCharacters(in: .whitespacesAndNewlines)
                         guard !title.isEmpty else { return }
                         draft.title = title
@@ -48,7 +49,7 @@ struct AchievementsView: View {
                         draft = AchievementGoal(kind: .water, title: "", targetML: 1800)
                     }
                     .keyboardShortcut(.defaultAction)
-                    Button("清空") {
+                    Button(L10n.text(.clear, language.language)) {
                         draft = AchievementGoal(kind: .water, title: "", targetML: 1800)
                     }
                 }
