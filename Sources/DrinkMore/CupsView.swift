@@ -43,7 +43,16 @@ struct CupsView: View {
                 Text(editingCupID == nil ? L10n.text(.addCup, language.language) : L10n.text(.editCup, language.language))
                     .font(.headline)
                 TextField(L10n.text(.cupName, language.language), text: $draft.name)
-                Stepper(L10n.capacity(draft.volumeML, language.language), value: $draft.volumeML, in: 50...2000, step: 10)
+                HStack {
+                    Text(L10n.text(.capacity, language.language))
+                    TextField("", value: $draft.volumeML, format: .number)
+                        .textFieldStyle(.roundedBorder)
+                        .frame(width: 90)
+                    Text("ml")
+                        .foregroundStyle(.secondary)
+                    Stepper("", value: $draft.volumeML, in: 50...2000, step: 10)
+                        .labelsHidden()
+                }
                 Picker(L10n.text(.type, language.language), selection: $draft.kind) {
                     ForEach(DrinkKind.allCases) { kind in
                         Text(L10n.drinkKind(kind, language.language)).tag(kind)
@@ -54,6 +63,7 @@ struct CupsView: View {
                         let name = draft.name.trimmingCharacters(in: .whitespacesAndNewlines)
                         guard !name.isEmpty else { return }
                         draft.name = name
+                        draft.volumeML = min(max(draft.volumeML, 50), 2000)
                         store.upsertCup(draft)
                         resetDraft()
                     }

@@ -136,6 +136,8 @@ enum L10n {
         case type
         case goal
         case goalName
+        case capacity
+        case target
         case enableReminders
         case saveReminderSettings
         case testFullScreenReminder
@@ -167,6 +169,8 @@ enum L10n {
         .type: "Type",
         .goal: "Goal",
         .goalName: "Name",
+        .capacity: "Capacity",
+        .target: "Target",
         .enableReminders: "Enable reminders",
         .saveReminderSettings: "Save reminder settings",
         .testFullScreenReminder: "Test full-screen reminder",
@@ -198,6 +202,8 @@ enum L10n {
         .type: "类型",
         .goal: "目标",
         .goalName: "名称",
+        .capacity: "容量",
+        .target: "目标",
         .enableReminders: "开启提醒",
         .saveReminderSettings: "保存提醒设置",
         .testFullScreenReminder: "立刻测试全屏提醒",

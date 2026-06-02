@@ -39,12 +39,22 @@ struct AchievementsView: View {
                         Text(L10n.drinkKind(kind, language.language)).tag(kind)
                     }
                 }
-                Stepper(L10n.target(draft.targetML, language.language), value: $draft.targetML, in: 50...5000, step: 50)
+                HStack {
+                    Text(L10n.text(.target, language.language))
+                    TextField("", value: $draft.targetML, format: .number)
+                        .textFieldStyle(.roundedBorder)
+                        .frame(width: 90)
+                    Text("ml")
+                        .foregroundStyle(.secondary)
+                    Stepper("", value: $draft.targetML, in: 50...5000, step: 50)
+                        .labelsHidden()
+                }
                 HStack {
                     Button(L10n.text(.save, language.language)) {
                         let title = draft.title.trimmingCharacters(in: .whitespacesAndNewlines)
                         guard !title.isEmpty else { return }
                         draft.title = title
+                        draft.targetML = min(max(draft.targetML, 50), 5000)
                         store.upsertGoal(draft)
                         draft = AchievementGoal(kind: .water, title: "", targetML: 1800)
                     }
